@@ -7,7 +7,7 @@ from pathlib import Path
 import folium
 import pandas as pd
 import requests
-from shapely.geometry import Point
+# from shapely.geometry import Point
 # import geopandas as gpd
 from tqdm import tqdm
 import time
@@ -423,13 +423,14 @@ class GoogleMapCollector:
         return len(page_data['results'])
 
 
+    """
     def _create_circles(self, rad, bottom_left, top_right, geometry, log_to_file_path):
-        """
+        """"""
         Takes various spacial params to return locations of grid of circles that can be used to hit google's api
         :param rad: radius of circles (meters)
         :return: list of lats and longs of required circles to cover given space
         Will also create a map.html file in path, open and click through to relevant browser to display
-        """
+        """"""
         # Create map if not existing already
         if not self.map:
             self.map = self._get_map(
@@ -523,15 +524,17 @@ class GoogleMapCollector:
 
         for lat, lon in derisked_all_lon_lats:
             self._circle_geometries.append([lat, lon, rad])
+            
+
 
 
     def _create_circles_2(self, rad, bottom_left, top_right, geometry, log_to_file_path):
-        """
+        """"""
         Takes various spacial params to return locations of grid of circles that can be used to hit google's api
         :param rad: radius of circles (meters)
         :return: list of lats and longs of required circles to cover given space
         Will also create a map.html file in path, open and click through to relevant browser to display
-        """
+        """"""
         # Create map if not existing already
         if not self.map:
             self.map = self._get_map(
@@ -625,6 +628,7 @@ class GoogleMapCollector:
         for lat, lon in derisked_all_lon_lats:
             self._circle_geometries.append([lat, lon, rad])
 
+    """
 
     def _write_circle_to_json_1(self, lat, long, cat, rad):
         """
