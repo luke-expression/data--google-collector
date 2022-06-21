@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 from tqdm import tqdm
 
-from expression.utils.utils import get_address_elements_from_google_json, get_time_element, check_you_want_to, \
+from utils.utils import get_address_elements_from_google_json, get_time_element, check_you_want_to, \
     get_rating_from_fsa_request, get_keywords, flag
 
 
@@ -46,7 +46,8 @@ class GoogleDataUpdater:
             'formatted_phone_number',
             'international_phone_number',
             'opening_hours',
-            'website'
+            'website',
+            'types'
         ]
 
         self.field_string = ','.join(self.fields)

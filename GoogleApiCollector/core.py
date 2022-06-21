@@ -1,8 +1,8 @@
-import ast
+# import ast
 import glob
 import json
 import os
-import webbrowser
+# import webbrowser
 from pathlib import Path
 import folium
 import pandas as pd
@@ -334,7 +334,7 @@ class GoogleMapCollector:
         """
         all_data = []
         in_file_path += '/*.json'
-        for file in glob.glob(in_file_path):
+        for file in tqdm(glob.glob(in_file_path)):
             data = json.load(open(file))
             all_data.append({
                 'lat': data['geometry']['location']['lat'],
@@ -851,6 +851,7 @@ class GoogleMapCollector:
 
         print('Ready to collect {0} new circles for ${1}'.format(str(len(new_circles_copy)),
                                                                  str(len(new_circles_copy) * 0.04)))
+        self.exclude_used_circles()
 
         if check_you_want_to():
             print('Writing first pages of Circles...')

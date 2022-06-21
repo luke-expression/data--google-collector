@@ -32,6 +32,9 @@ if __name__ == '__main__':
 
     #params = params.set_index('name').to_dict('index')
 
+
+    ##### Create Parameters for search ########
+
     # we reference a master .csv file to handle removal of chains and dupes
     # ensure you always write any new data here using collector.write_to_master
     # otherwise, we won't keep learning about trades
@@ -40,12 +43,19 @@ if __name__ == '__main__':
     #flood_data_path = 'data/postal_sector_full_ratings.csv'
     # finally, we get a list of categories, this can take any format, as long as they match googles format
     # and as long as in a list or set
+    chosen_cats = ['beauty_salon', 'hair_care']
     categories = set(get_clean_list(list(CORE_CATEGORY_MAP.values())))
-    categories = set(cat for cat in categories if cat in ['store'])  # 'book_store'
+    categories = set(cat for cat in categories if cat in chosen_cats)  # 'book_store'
 
 
     # we now instantiate our circle based map collector
-    collector = GoogleMapCollector(path='tests/main_test_2/')
+    directory_path = 'collection/hair/'
+    Path(directory_path).mkdir(parents=True, exist_ok=True)
+
+
+    ##### Run initial class
+
+    collector = GoogleMapCollector(path=directory_path)
 
     # then we fit it with the params from above and categories - this will create a map and will store
     # in our collector class the longs, lats and radii that we want
@@ -75,17 +85,20 @@ if __name__ == '__main__':
     collector.tabulate(out_file_path=out_file_path, dedupe=True)
 
 
+
+
+
     #### USE FOR RUNNING MAX CIRCLES  #####
 
     dotenv.load_dotenv()
 
     # Where to store the files from this run
-    directory_path = 'tests/main_test_2/maxed_circles_1/'
-    Path('tests/main_test_2/maxed_circles_1/').mkdir(parents=True, exist_ok=True)
-    collector = GoogleMapCollector(path=directory_path)
+    directory_path_2 = directory_path+'maxed_circles_1/'
+    Path(directory_path_2).mkdir(parents=True, exist_ok=True)
+    collector = GoogleMapCollector(path=directory_path_2)
 
     path_to_master = 'data/master_dataset_2022.csv'
-    path_to_maxed_circles = 'tests/main_test_2/maxed_circles.csv'
+    path_to_maxed_circles = directory_path+'maxed_circles.csv'
 
     collector.import_maxed_circles(in_path=path_to_maxed_circles, make_map=True)
 
